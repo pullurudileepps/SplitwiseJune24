@@ -1,6 +1,5 @@
 package com.example.SplitwiseJune24.Service;
 
-import com.example.SplitwiseJune24.Exceptions.InvalidRegisterUserRequest;
 import com.example.SplitwiseJune24.Exceptions.RegisterUserException;
 import com.example.SplitwiseJune24.Model.User;
 import com.example.SplitwiseJune24.Repo.UserRepository;

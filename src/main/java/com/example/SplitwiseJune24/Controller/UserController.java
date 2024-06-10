@@ -3,7 +3,7 @@ package com.example.SplitwiseJune24.Controller;
 import com.example.SplitwiseJune24.Dto.RegisterUserRequestDto;
 import com.example.SplitwiseJune24.Dto.RegisterUserResponseDto;
 import com.example.SplitwiseJune24.Dto.Response;
-import com.example.SplitwiseJune24.Exceptions.InvalidRegisterUserRequest;
+import com.example.SplitwiseJune24.Exceptions.InvalidRequestException;
 import com.example.SplitwiseJune24.Model.User;
 import com.example.SplitwiseJune24.Service.UserService;
 import org.springframework.stereotype.Controller;
@@ -28,9 +28,9 @@ public class UserController {
         }
         return responseDto;
     }
-    public void validateRegistorUserRequest(RegisterUserRequestDto requestDto) throws InvalidRegisterUserRequest {
+    public void validateRegistorUserRequest(RegisterUserRequestDto requestDto) throws InvalidRequestException {
         if(requestDto.getUserName() == null || requestDto.getPassword() == null || requestDto.getPhoneNumber() == null){
-            throw new InvalidRegisterUserRequest("Username or password or phone number cannot be null");
+            throw new InvalidRequestException("Username or password or phone number cannot be null");
         }
     }
 }
