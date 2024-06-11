@@ -14,8 +14,8 @@ import java.util.PriorityQueue;
 public class TwoHeadSettleUpStrategy implements SettleUpStrategy {
     @Override
     public List<Transaction> settleUp(Map<User, Double> userTotal) {
-        PriorityQueue<Pair<User, Double>> maxHeap = new PriorityQueue<>((a, b) -> (int) (a.getSecond() - b.getSecond()));
-        PriorityQueue<Pair<User, Double>> minHeap = new PriorityQueue<>((a, b) -> (int) (b.getSecond() - a.getSecond()));
+        PriorityQueue<Pair<User, Double>> maxHeap = new PriorityQueue<>((a, b) -> (int) (b.getSecond() - a.getSecond()));
+        PriorityQueue<Pair<User, Double>> minHeap = new PriorityQueue<>((a, b) -> (int) (a.getSecond() - b.getSecond()));
         for (Map.Entry<User, Double> entry : userTotal.entrySet()) {
             if (entry.getValue() > 0) {
                 maxHeap.add(Pair.of(entry.getKey(), entry.getValue()));
@@ -34,11 +34,13 @@ public class TwoHeadSettleUpStrategy implements SettleUpStrategy {
             transaction.setPaidFrom(userToPay.getFirst());
             transaction.setPaidTo(userToGetMoney.getFirst());
             transactions.add(transaction);
-            if (userToPay.getSecond() - amountToBeTransferred > 0) {
-                maxHeap.add(Pair.of(userToPay.getFirst(), userToPay.getSecond() - amountToBeTransferred));
+
+            if(userToGetMoney.getSecond() - amountToBeTransferred > 0){
+                maxHeap.add(Pair.of(userToGetMoney.getFirst(), userToGetMoney.getSecond() - amountToBeTransferred));
             }
-            if (userToGetMoney.getSecond() + amountToBeTransferred < 0) {
-                minHeap.add(Pair.of(userToGetMoney.getFirst(), userToGetMoney.getSecond() + amountToBeTransferred));
+
+            if(userToPay.getSecond() + amountToBeTransferred < 0){
+                minHeap.add(Pair.of(userToPay.getFirst(), userToPay.getSecond() + amountToBeTransferred));
             }
         }
         return transactions;
